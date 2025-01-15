@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:practice_flutter/data/notifiers.dart';
+import 'package:practice_flutter/views/widget_tree.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: isDarkModeNotifier,
+      builder: (_, isDarkMode, __) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.teal,
+              brightness: isDarkMode ? Brightness.dark : Brightness.light,
+            ),
+            useMaterial3: true,
+          ),
+          home: const WidgetTree(),
+        );
+      },
+    );
+  }
+}
